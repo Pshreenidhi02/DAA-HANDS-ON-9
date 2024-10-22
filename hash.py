@@ -11,7 +11,7 @@ class DoublyLinkedList:
         self.tail = None
 
     def insert(self, key, value):
-        """Insert a new node at the end of the doubly linked list."""
+       
         new_node = Node(key, value)
         if self.head is None:
             self.head = self.tail = new_node
@@ -21,7 +21,7 @@ class DoublyLinkedList:
             self.tail = new_node
 
     def find(self, key):
-        """Find a node by key."""
+        
         current = self.head
         while current:
             if current.key == key:
@@ -30,7 +30,7 @@ class DoublyLinkedList:
         return None
 
     def remove(self, key):
-        """Remove a node by key."""
+        
         node = self.find(key)
         if node is None:
             return False
@@ -45,7 +45,7 @@ class DoublyLinkedList:
         return True
 
     def items(self):
-        """Return all items in the linked list."""
+        
         current = self.head
         while current:
             yield current.key, current.value
@@ -60,13 +60,13 @@ class HashTable:
         self.table = [DoublyLinkedList() for _ in range(self.capacity)]
 
     def _hash_function(self, key):
-        """Hash function using the multiplication and division method."""
+        
         A = 0.618033  # Golden ratio fraction approximation
         fractional_part = (key * A) % 1
         return int(self.capacity * fractional_part)
 
     def insert(self, key, value):
-        """Insert a key-value pair into the hash table."""
+        
         index = self._hash_function(key)
         bucket = self.table[index]
         node = bucket.find(key)
@@ -81,7 +81,7 @@ class HashTable:
             self._resize(self.capacity * 2)
 
     def get(self, key):
-        """Retrieve the value for a given key."""
+       
         index = self._hash_function(key)
         node = self.table[index].find(key)
         if node:
@@ -90,7 +90,7 @@ class HashTable:
             raise KeyError(f"Key {key} not found!")
 
     def remove(self, key):
-        """Remove the key-value pair from the hash table."""
+        
         index = self._hash_function(key)
         removed = self.table[index].remove(key)
 
@@ -102,7 +102,7 @@ class HashTable:
             raise KeyError(f"Key {key} not found!")
 
     def _resize(self, new_capacity):
-        """Resize the hash table to a new capacity."""
+        
         old_table = self.table
         self.capacity = new_capacity
         self.table = [DoublyLinkedList() for _ in range(self.capacity)]
@@ -110,10 +110,10 @@ class HashTable:
 
         for bucket in old_table:
             for key, value in bucket.items():
-                self.insert(key, value)  # Reinsert into new table
+                self.insert(key, value)  
 
     def print_table(self):
-        """Print the entire hash table."""
+        
         for i, bucket in enumerate(self.table):
             print(f"Bucket {i}: ", end="")
             for key, value in bucket.items():
